@@ -496,7 +496,7 @@ export default function SelectedMovie() {
                       {relatedMovies.map((movie) => (
                         <Link
                           sx={{ textDecoration: "none" }}
-                          href={`https://jo-ka-movies-client.vercel.app/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
+                          href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
                         >
                           <Card
                             key={movie.id}
