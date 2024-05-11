@@ -151,7 +151,7 @@ export default function Dashboard() {
         setTotalResults(searchResults.data.total_results);
         // setSearchResults(searchResults.data.results);
 
-        if (currentPage <= pages) {
+        if (currentPage <= 5) {
           // More pages available, continue iterating
           await fetchMovies(currentPage + 1);
           setSearchResults((prevResults) => [...prevResults, ...searchResults.data.results]);
