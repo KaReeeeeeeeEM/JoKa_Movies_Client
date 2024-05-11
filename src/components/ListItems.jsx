@@ -52,7 +52,7 @@ let MainListItems = () => {
   return (
     <React.Fragment>
       <List component="nav" sx={{marginTop:"3rem", position:"fixed", left:0, top:0,height:"100vh", width:'4.7%'}}>
-      <Link href={`http://localhost:3000/Dashboard?profile=${profile}`}>
+      <Link href={`/Dashboard?profile=${profile}`}>
         <ListItemButton sx={styles}>
           <ListItemIcon sx={{transition: 'transform 0.3s ease-in-out',color:'orange', '&:hover': {transform: 'scale(1.02)',color:'orange'}}}>
             <HomeIcon />
