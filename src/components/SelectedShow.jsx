@@ -163,7 +163,7 @@ export default function SelectedMovie() {
         );
         setTrendingMovies(trending.data);
       } catch (error) {
-        //window.location.href = "http://localhost:3000/NetworkError";
+        //window.location.href = "/NetworkError";
         console.error("Error fetching movies:", error);
       }finally{
         setLoading(false);
