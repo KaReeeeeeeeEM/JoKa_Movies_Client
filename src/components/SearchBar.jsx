@@ -91,7 +91,7 @@ export default function OrangeOutlineSearchBar() {
     try {
       const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=035c0f1a7347b310a5b95929826fc81f&query=${inputValue}`);
       console.log('Request successful:', response.data);
-      window.location.href=`http://localhost:3000/Results/${user}?profile=${profile}&search=${inputValue}&pages=${response.data.total_pages}`;
+      window.location.href=`/Results/${user}?profile=${profile}&search=${inputValue}&pages=${response.data.total_pages}`;
       // Handle successful response (e.g., clear input, display success message)
     } catch (error) {
       console.error('Request error:', error);
