@@ -141,7 +141,7 @@ export default function Dashboard() {
         );
         //setUpcomingMovies(upcoming.data.results);
 
-        if (currentPage <= 15) {
+        if (currentPage <= 5) {
           // More pages available, continue iterating
           await fetchMovies(currentPage + 1);
           setPopularMovies((prevResults) => [
@@ -165,7 +165,7 @@ export default function Dashboard() {
           );
         }
       } catch (error) {
-        window.location.href = "http://localhost:3000/NetworkError";
+        window.location.href = "https://jo-ka-movies-client.vercel.app/NetworkError";
         console.error("Error fetching movies:", error);
       } finally {
         setTimeout(() => setLoading(false), 10000);
