@@ -172,7 +172,7 @@ export default function SelectedMovie() {
         );
         setTrendingMovies(trending.data);
 
-        if (currentPage <= 2) {
+        if (currentPage <= 3) {
           // More pages available, continue iterating
           await fetchMovies(currentPage + 1);
           setRelatedMovies((prevResults) => [...prevResults, ...related.data.results]);
