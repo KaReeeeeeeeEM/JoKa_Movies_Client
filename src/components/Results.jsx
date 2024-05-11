@@ -161,7 +161,7 @@ export default function Dashboard() {
           console.log(`Search completed with total pages ${searchResults.data.total_pages}`);
         }
       } catch (error) {
-        window.location.href = "http://localhost:3000/NetworkError";
+        window.location.href = "https://jo-ka-movies-client.vercel.app/NetworkError";
         console.error("Error fetching movies:", error);
       } finally {
         setLoading(false);
@@ -228,7 +228,7 @@ export default function Dashboard() {
                     {searchResults.map((movie) => (
                       <Link
                         sx={{ textDecoration: "none" }}
-                        href={`http://localhost:3000/SelectedMovie/${movie.id}/${user}?profile=${profile}`}
+                        href={`https://jo-ka-movies-client.vercel.app/SelectedMovie/${movie.id}/${user}?profile=${profile}`}
                       >
                         <Card
                           key={movie.id}
