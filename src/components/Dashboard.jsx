@@ -124,7 +124,7 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    const fetchMovies = async (currentPage = 10) => {
+    const fetchMovies = async (currentPage = 1) => {
       try {
         const popular = await axios.get(
           `https://api.themoviedb.org/3/movie/popular?api_key=035c0f1a7347b310a5b95929826fc81f&language=en-US&page=${currentPage}`
