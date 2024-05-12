@@ -141,7 +141,7 @@ export default function Dashboard() {
         );
         //setUpcomingMovies(upcoming.data.results);
 
-        if (currentPage <= 5) {
+        if (currentPage <= 3) {
           // More pages available, continue iterating
           await fetchMovies(currentPage + 1);
           setPopularMovies((prevResults) => [
