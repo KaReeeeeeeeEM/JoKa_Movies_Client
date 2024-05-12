@@ -172,15 +172,15 @@ export default function SelectedMovie() {
         );
         setTrendingMovies(trending.data);
 
-        if (currentPage <= 2) {
+        //if (currentPage <= 2) {
           // More pages available, continue iterating
-          await fetchMovies(currentPage + 1);
-          setRelatedMovies((prevResults) => [...prevResults, ...related.data.results]);
-          currentPage++;
-        } else {
+          //await fetchMovies(currentPage + 1);
+          //setRelatedMovies((prevResults) => [...prevResults, ...related.data.results]);
+          //currentPage++;
+       // } else {
           setLoading(false);
           console.log(`Search completed with total pages ${related.data.total_pages}`);
-        }
+        //}
 
         try {
           const response = await axios.get(
