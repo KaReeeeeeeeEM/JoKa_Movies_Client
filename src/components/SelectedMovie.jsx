@@ -173,15 +173,15 @@ export default function SelectedMovie() {
         );
         setTrendingMovies(trending.data);
 
-        //if (currentPage <= 2) {
-          // More pages available, continue iterating
-          //await fetchMovies(currentPage + 1);
-          //setRelatedMovies((prevResults) => [...prevResults, ...related.data.results]);
-          //currentPage++;
-       // } else {
+        if (currentPage <= 2) {
+          //More pages available, continue iterating
+          await fetchMovies(currentPage + 1);
+          setRelatedMovies((prevResults) => [...prevResults, ...related.data.results]);
+          currentPage++;
+       } else {
           setLoading(false);
           console.log(`Search completed with total pages ${related.data.total_pages}`);
-        //}
+        }
 
         try {
           setLoading(true);

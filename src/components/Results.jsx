@@ -144,6 +144,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchMovies = async (currentPage = 1) => {
       try {
+        setLoading(true);
         const searchResults = await axios.get(
           `https://api.themoviedb.org/3/search/movie?api_key=035c0f1a7347b310a5b95929826fc81f&query=${searchInput}&page=${currentPage}`
         );
@@ -161,6 +162,7 @@ export default function Dashboard() {
           console.log(`Search completed with total pages ${searchResults.data.total_pages}`);
         }
       } catch (error) {
+        setLoading(false);
         window.location.href = "https://jo-ka-movies-client.vercel.app/NetworkError";
         console.error("Error fetching movies:", error);
       } finally {
