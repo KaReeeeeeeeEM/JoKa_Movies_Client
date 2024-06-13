@@ -229,7 +229,7 @@ export default function Dashboard() {
                     {searchResults.map((movie) => (
                       <Link
                         sx={{ textDecoration: "none" }}
-                        href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}`}
+                        href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
                       >
                         <Card
                           key={movie.id}
