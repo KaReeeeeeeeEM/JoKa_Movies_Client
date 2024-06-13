@@ -154,6 +154,7 @@ export default function SelectedMovie() {
   useEffect(() => {
     const fetchMovies = async (currentPage = 1) => {
       try {
+        setLoading(true);
         // const related = await axios.get(
         //   `https://api.themoviedb.org/3/tv/top_rated?api_key=035c0f1a7347b310a5b95929826fc81f&language=en-US`
         // );
@@ -183,6 +184,7 @@ export default function SelectedMovie() {
         //}
 
         try {
+          setLoading(true);
           const response = await axios.get(
             `https://api.themoviedb.org/3/movie/${movieid}/videos?api_key=035c0f1a7347b310a5b95929826fc81f`
           );
@@ -199,10 +201,12 @@ export default function SelectedMovie() {
             });
           }
         } catch (error) {
+          setLoading(false);
           console.log(error);
         }
       } catch (error) {
         //window.location.href = "http://localhost:3000/NetworkError";
+        setLoading(false);
         console.error("Error fetching movies:", error);
       } finally{
         setLoading(false);

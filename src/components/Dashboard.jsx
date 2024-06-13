@@ -126,6 +126,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchMovies = async (currentPage = 1) => {
       try {
+        setLoading(true);
         const popular = await axios.get(
           `https://api.themoviedb.org/3/movie/popular?api_key=035c0f1a7347b310a5b95929826fc81f&language=en-US&page=${currentPage}`
         );
@@ -165,10 +166,11 @@ export default function Dashboard() {
           );
         }
       } catch (error) {
+        setLoading(false);
         window.location.href = "https://jo-ka-movies-client.vercel.app/NetworkError";
         console.error("Error fetching movies:", error);
       } finally {
-        setTimeout(() => setLoading(false), 10000);
+        setLoading(false);
       }
     };
 
