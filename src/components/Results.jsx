@@ -230,7 +230,7 @@ export default function Dashboard() {
                     {searchResults.map((movie) => (
                       <Link
                         sx={{ textDecoration: "none" }}
-                        href={`https://jo-ka-movies-client.vercel.app/SelectedMovie/${movie.id}/${user}?profile=${profile}`}
+                        href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}`}
                       >
                         <Card
                           key={movie.id}
