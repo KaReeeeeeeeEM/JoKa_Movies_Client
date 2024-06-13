@@ -130,6 +130,7 @@ export default function Dashboard() {
     } else {
       setProfile(profile);
     }
+
     if (searchInput) {
       setResults(searchInput);
     } else {
@@ -148,9 +149,7 @@ export default function Dashboard() {
         const searchResults = await axios.get(
           `https://api.themoviedb.org/3/search/movie?api_key=035c0f1a7347b310a5b95929826fc81f&query=${searchInput}&page=${currentPage}`
         );
-        
         setTotalResults(searchResults.data.total_results);
-        // setSearchResults(searchResults.data.results);
 
         if (currentPage <= 5) {
           // More pages available, continue iterating
@@ -163,7 +162,7 @@ export default function Dashboard() {
         }
       } catch (error) {
         setLoading(false);
-        window.location.href = "https://jo-ka-movies-client.vercel.app/NetworkError";
+        window.location.href = "/NetworkError";
         console.error("Error fetching movies:", error);
       } finally {
         setLoading(false);

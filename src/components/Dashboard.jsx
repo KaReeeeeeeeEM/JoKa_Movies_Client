@@ -167,7 +167,7 @@ export default function Dashboard() {
         }
       } catch (error) {
         setLoading(false);
-        window.location.href = "https://jo-ka-movies-client.vercel.app/NetworkError";
+        window.location.href = "/NetworkError";
         console.error("Error fetching movies:", error);
       } finally {
         setLoading(false);

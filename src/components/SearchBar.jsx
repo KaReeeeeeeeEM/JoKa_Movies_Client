@@ -84,20 +84,17 @@ export default function OrangeOutlineSearchBar() {
   }, []);
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
+    event.preventDefault(); 
     setInputValue("");
     console.log(`Searched for ${inputValue}`);
-    // Make your request using Axios or a similar library
     try {
       const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=035c0f1a7347b310a5b95929826fc81f&query=${inputValue}`);
       console.log('Request successful:', response.data);
       window.location.href=`/Results/${user}?profile=${profile}&search=${inputValue}&pages=${response.data.total_pages}`;
-      // Handle successful response (e.g., clear input, display success message)
     } catch (error) {
       console.error('Request error:', error);
-      // Handle error (e.g., display error message)
     } finally {
-      // Perform any actions regardless of success or error (e.g., reset loading state)
+      console.log('Finished fetching ' + response.data.total_pages);
     }
   };
 
