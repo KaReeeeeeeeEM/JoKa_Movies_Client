@@ -94,7 +94,7 @@ export default function OrangeOutlineSearchBar() {
     } catch (error) {
       console.error('Request error:', error);
     } finally {
-      console.log('Finished fetching ' + response.data.total_pages);
+      console.log('Finished fetching movies')
     }
   };
 
