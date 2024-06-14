@@ -280,7 +280,7 @@ export default function SelectedMovie() {
                     })`,
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
-                    backgroundPosition: "center",
+                    backgroundPosition:"center",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
@@ -300,7 +300,7 @@ export default function SelectedMovie() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    marginTop: "-8rem",
+                    marginTop: "-9rem",
                   }}
                 >
                   <Card2

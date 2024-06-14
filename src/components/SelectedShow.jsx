@@ -240,7 +240,7 @@ export default function SelectedMovie() {
                     justifyContent: "center",
                     alignItems: "center",
                     marginTop: "-4rem",
-                    height: "50vh",
+                    height: "80vh",
                     filter: "blur(2px) brightness(50%)",
                   }}
                 ></Grid>
