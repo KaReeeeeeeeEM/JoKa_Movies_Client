@@ -242,7 +242,7 @@ export default function SelectedMovie() {
       ) : (
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
-          <Drawer variant="permanent">
+          {/* <Drawer variant="permanent">
             <Toolbar
               sx={{
                 display: "flex",
@@ -254,8 +254,8 @@ export default function SelectedMovie() {
               <TopBar profile={profile} />
             </Toolbar>
             <Divider />
-            {/* <MainListItems /> */}
-          </Drawer>
+            {/* <MainListItems /> 
+          </Drawer> */}
           <Box
             component="main"
             sx={{
