@@ -261,7 +261,7 @@ export default function SelectedMovie() {
             sx={{
               backgroundColor: "#fff",
               flexGrow: 1,
-              height: "100vh",
+              height: "100%",
               width: "100%",
             }}
           >
