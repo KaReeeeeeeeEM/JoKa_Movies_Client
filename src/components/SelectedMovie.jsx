@@ -266,7 +266,7 @@ export default function SelectedMovie() {
             }}
           >
             <Toolbar />
-            <Container maxWidth="100vw" sx={{ mt: 3, mb: 4, pl: 0, pr: 0 }}>
+            <Container maxWidth="100vw" maxHeight="60vh" sx={{ mt: 3, mb: 4, pl: 0, pr: 0 }}>
               <Grid container spacing={3}>
                 {/* Blur Background on top */}
                 <Grid
