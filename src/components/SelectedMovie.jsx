@@ -254,7 +254,7 @@ export default function SelectedMovie() {
               <TopBar profile={profile} />
             </Toolbar>
             <Divider />
-            <MainListItems />
+            {/* <MainListItems /> */}
           </Drawer>
           <Box
             component="main"
