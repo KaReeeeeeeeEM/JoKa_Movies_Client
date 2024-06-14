@@ -184,7 +184,7 @@ export default function Dashboard() {
       ) : (
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
-          <Drawer variant="permanent">
+          {/* <Drawer variant="permanent">
             <Toolbar
               sx={{
                 display: "flex",
@@ -197,7 +197,7 @@ export default function Dashboard() {
             </Toolbar>
             <Divider />
             <MainListItems />
-          </Drawer>
+          </Drawer> */}
           <Box
             component="main"
             sx={{
