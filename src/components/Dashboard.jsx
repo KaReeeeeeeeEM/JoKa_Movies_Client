@@ -208,7 +208,7 @@ export default function Dashboard() {
             }}
           >
             <Toolbar />
-            <Container maxWidth="100vw" sx={{ mt: 3, mb: 4, }} ml={{ xs: 6, md: 1 }}>
+            <Container maxWidth="100vw" sx={{ mt: 3, mb: 4, }} mx="auto">
               <Grid container spacing={3}>
                 {/* Popular movies */}
                 <Grid xs={12} mt={5}>
