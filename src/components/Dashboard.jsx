@@ -208,10 +208,10 @@ export default function Dashboard() {
             }}
           >
             <Toolbar />
-            <Container maxWidth="100vw" sx={{ mt: 3, mb: 4, }} ml={{sm:4,md:6}}>
-              <Grid container spacing={3}>
+            <Container maxWidth="100vw" sx={{ mt: 3, mb: 4 }} >
+              <Grid container spacing={3} justifyContent="center">
                 {/* Popular movies */}
-                <Grid xs={12} mt={5}>
+                <Grid item xs={12} mt={5} textAlign="center">
                   {user ? (
                     <Typography variant="h4">
                       <IconButton>
@@ -229,37 +229,38 @@ export default function Dashboard() {
                     </Typography>
                   )}
                   <Grid
-                    xs={12}
-                    md={12}
+                    container
+                    justifyContent="center"
+                    spacing={2}
                     mt={3}
                     sx={{
                       display: "flex",
-                      alignItems: { md: "center" },
                       flexWrap: "wrap",
-                      overflowX: "auto",
                     }}
                   >
                     {popularMovies.map((movie) => (
-                      <Link
-                        sx={{ textDecoration: "none" }}
-                        href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title|| movie.original_title}`}
-                      >
-                        <Card
-                          key={movie.id}
-                          movie={
-                            movie.original_title.length > 30
-                              ? movie.original_title.substring(0, 30) + "..."
-                              : movie.original_title
-                          }
-                          year={movie.release_date.slice(0, 4)}
-                          poster_path={movie.poster_path}
-                        />
-                      </Link>
+                      <Grid item key={movie.id}>
+                        <Link
+                          sx={{ textDecoration: "none" }}
+                          href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
+                        >
+                          <Card
+                            key={movie.id}
+                            movie={
+                              movie.original_title.length > 30
+                                ? movie.original_title.substring(0, 30) + "..."
+                                : movie.original_title
+                            }
+                            year={movie.release_date.slice(0, 4)}
+                            poster_path={movie.poster_path}
+                          />
+                        </Link>
+                      </Grid>
                     ))}
                   </Grid>
                 </Grid>
                 {/* Trending movies */}
-                <Grid xs={12} mt={5} ml={{ xs: 4, md: 1 }}>
+                <Grid item xs={12} mt={5} textAlign="center">
                   <Typography variant="h4">
                     <IconButton>
                       <TrendingUp fontSize="large" />
@@ -268,87 +269,89 @@ export default function Dashboard() {
                     Shows
                   </Typography>
                   <Grid
-                    xs={12}
-                    md={12}
+                    container
+                    justifyContent="center"
+                    spacing={2}
                     mt={3}
                     sx={{
                       display: "flex",
-                      alignItems: "center",
                       flexWrap: "wrap",
                     }}
                   >
                     {trendingMovies.map((movie) => (
-                      <Link
-                        sx={{ textDecoration: "none" }}
-                        href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
-                      >
-                        <Card
-                          key={movie.id}
-                          movie={
-                            movie.title > 30
-                              ? movie.title.substring(0, 30)
-                              : movie.title || movie.original_title > 30
-                              ? movie.original_title.substring(0, 30)
-                              : movie.original_title || movie.name > 30
-                              ? movie.name.substring(0, 30) + "..."
-                              : movie.name
-                          }
-                          media={movie.media_type.toUpperCase()}
-                          rating={Math.ceil(movie.vote_average * 10) / 10}
-                          poster_path={movie.poster_path || movie.backdrop_path}
-                          star={<Star />}
-                        />
-                      </Link>
+                      <Grid item key={movie.id}>
+                        <Link
+                          sx={{ textDecoration: "none" }}
+                          href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
+                        >
+                          <Card
+                            key={movie.id}
+                            movie={
+                              movie.title.length > 30
+                                ? movie.title.substring(0, 30)
+                                : movie.title || movie.original_title.length > 30
+                                ? movie.original_title.substring(0, 30)
+                                : movie.original_title || movie.name.length > 30
+                                ? movie.name.substring(0, 30) + "..."
+                                : movie.name
+                            }
+                            media={movie.media_type.toUpperCase()}
+                            rating={Math.ceil(movie.vote_average * 10) / 10}
+                            poster_path={movie.poster_path || movie.backdrop_path}
+                            star={<Star />}
+                          />
+                        </Link>
+                      </Grid>
                     ))}
                   </Grid>
                 </Grid>
 
                 {/* Recent Orders */}
-                <Grid xs={12} mt={5} ml={{ xs: 4, md: 1 }}>
+                <Grid item xs={12} mt={5} textAlign="center">
                   <Typography variant="h4">
                     <IconButton>
-                      <IconButton fontSize="large">
-                        <LightbulbIcon fontSize="large" />
-                      </IconButton>
+                      <LightbulbIcon fontSize="large" />
                     </IconButton>
                     <span style={{ color: "orange" }}>Featured</span> Content{" "}
                   </Typography>
                   <Grid
-                    xs={12}
-                    md={12}
+                    container
+                    justifyContent="center"
+                    spacing={2}
                     mt={3}
                     sx={{
                       display: "flex",
-                      alignItems: "center",
                       flexWrap: "wrap",
                     }}
                   >
                     {upcomingMovies.map((movie) => (
-                      <Link
-                        sx={{ textDecoration: "none" }}
-                        href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${ movie.original_title || movie.original_title}`}
-                      >
-                        <Card
-                          key={movie.id}
-                          movie={
-                            movie.title > 30
-                              ? movie.title.substring(0, 30)
-                              : movie.title || movie.original_title > 30
-                              ? movie.original_title.substring(0, 30) + "..."
-                              : movie.original_title || movie.name > 30
-                              ? movie.name.substring(0, 30) + "..."
-                              : movie.name
-                          }
-                          year={movie.release_date.slice(0, 4)}
-                          rating={
-                            movie.vote_average === 0
-                              ? "5.5"
-                              : movie.vote_average
-                          }
-                          poster_path={movie.backdrop_path}
-                          star={<Star />}
-                        />
-                      </Link>
+                      <Grid item key={movie.id}>
+                        <Link
+                          sx={{ textDecoration: "none" }}
+                          href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
+                        >
+                          <Card
+                            key={movie.id}
+                            movie={
+                              movie.title.length > 30
+                                ? movie.title.substring(0, 30)
+                                : movie.title || movie.original_title.length > 30
+                                ? movie.original_title.substring(0, 30) + "..."
+                                : movie.original_title || movie.name.length > 30
+                                ? movie.name.substring(0, 30) + "..."
+                                : movie.name
+                            }
+                            year={movie.release_date.slice(0, 4)}
+                            rating={
+                              movie.vote_average === 0
+                                ? "5.5"
+                                : movie.vote_average
+                            }
+                            poster_path={movie.backdrop_path}
+                            star={<Star />}
+                          />
+                        </Link>
+                      </Grid>
                     ))}
                   </Grid>
                 </Grid>
