@@ -193,11 +193,11 @@ export default function Dashboard() {
                 px: [1],
               }}
             >
-              <TopBar profile={profilePicture} />
             </Toolbar>
             <Divider />
             <MainListItems />
           </Drawer> */}
+          <TopBar profile={profilePicture} />
           <Box
             component="main"
             sx={{
