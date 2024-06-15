@@ -263,7 +263,7 @@ export default function SelectedMovie() {
               flexGrow: 1,
               height: "100%",
               width: "100%",
-              marginLeft:"2rem"
+              marginLeft:"0.5rem"
             }}
           >
             <Toolbar />
