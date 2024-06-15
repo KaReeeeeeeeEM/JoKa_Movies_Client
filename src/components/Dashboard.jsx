@@ -211,7 +211,7 @@ export default function Dashboard() {
             <Container maxWidth="lg" sx={{ mt: 3, mb: 4 }}>
               <Grid container spacing={3}>
                 {/* Popular movies */}
-                <Grid xs={12} mt={5} ml={{ xs: 6, md: 1 }}>
+                <Grid xs={12} mt={5}>
                   {user ? (
                     <Typography variant="h4">
                       <IconButton>
