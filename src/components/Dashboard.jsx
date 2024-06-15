@@ -182,7 +182,7 @@ export default function Dashboard() {
       {loading ? (
         <SimpleBackDrop />
       ) : (
-        <Box sx={{ display: "flex", alignItems:"center", justifyContent:"center" }}>
+        <Box sx={{ display: "flex" }}>
           <CssBaseline />
           {/* <Drawer variant="permanent">
             <Toolbar
@@ -208,7 +208,7 @@ export default function Dashboard() {
             }}
           >
             <Toolbar />
-            <Container maxWidth="100vw" sx={{ mt: 3, mb: 4, }} mx="auto">
+            <Container maxWidth="100vw" sx={{ mt: 3, mb: 4, }} ml={{sm:4,md:6}}>
               <Grid container spacing={3}>
                 {/* Popular movies */}
                 <Grid xs={12} mt={5}>
