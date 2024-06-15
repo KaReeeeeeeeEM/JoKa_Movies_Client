@@ -251,11 +251,11 @@ export default function SelectedMovie() {
                 px: [1],
               }}
             >
-              <TopBar profile={profile} />
             </Toolbar>
             <Divider />
             {/* <MainListItems /> 
-          </Drawer> */}
+            </Drawer> */}
+            <TopBar profile={profile} />
           <Box
             component="main"
             sx={{
@@ -263,6 +263,7 @@ export default function SelectedMovie() {
               flexGrow: 1,
               height: "100%",
               width: "100%",
+              marginLeft:"2rem"
             }}
           >
             <Toolbar />
