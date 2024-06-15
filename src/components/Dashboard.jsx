@@ -182,7 +182,7 @@ export default function Dashboard() {
       {loading ? (
         <SimpleBackDrop />
       ) : (
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex", margin:"auto" }}>
           <CssBaseline />
           {/* <Drawer variant="permanent">
             <Toolbar
