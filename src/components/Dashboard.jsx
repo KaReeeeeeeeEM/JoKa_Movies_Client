@@ -93,7 +93,7 @@ const defaultTheme = createTheme();
 
 export default function Dashboard() {
   const [open, setOpen] = useState(true);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState(null);
   const [profile, setProfile] = useState(null);
   const [popularMovies, setPopularMovies] = useState([]);
@@ -130,8 +130,7 @@ export default function Dashboard() {
         const popularMoviesData = await fetchMoviesByCategory("popular", 5);
   
         // Fetch trending movies (5 pages)
-        const trendingMoviesData = await fetchTrending("trending", 5);
-        // const trendingMoviesData = await fetchMoviesByCategory("popular", 5);
+        const trendingMoviesData = await fetchMoviesByCategory("trending", 5);
   
         // Fetch upcoming movies (5 pages)
         const upcomingMoviesData = await fetchMoviesByCategory("upcoming", 5);
@@ -145,8 +144,6 @@ export default function Dashboard() {
       } catch (error) {
         setLoading(false);
         console.error("Error fetching movies:", error);
-      }finally{
-        setLoading(false);
       }
     };
   
@@ -155,11 +152,11 @@ export default function Dashboard() {
   
   const fetchMoviesByCategory = async (category, pageCount) => {
     try {
-      setLoading(true)
       let allMovies = [];
+  
       for (let page = 1; page <= pageCount; page++) {
         const response = await axios.get(
-          `https://api.themoviedb.org/3/movie/${category}?api_key=035c0f1a7347b310a5b95929826fc81f&language=en-US&page=${page}`
+          `https://api.themoviedb.org/3/${category}?api_key=035c0f1a7347b310a5b95929826fc81f&language=en-US&page=${page}`
         );
         const moviesData = response.data.results;
         allMovies = [...allMovies, ...moviesData];
@@ -167,36 +164,8 @@ export default function Dashboard() {
   
       return allMovies;
     } catch (error) {
-      setLoading(false);
       console.error(`Error fetching ${category} movies:`, error);
       return [];
-    }finally{
-      setLoading(false);
-      console.error(`Finished fetching upcoming and popular movies`);
-    }
-  };
-
-  const fetchTrending = async (category, pageCount) => {
-    try {
-      let allMovies = [];
-      setLoading(true);
-  
-      for (let page = 1; page <= pageCount; page++) {
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/${category}/all/day?api_key=035c0f1a7347b310a5b95929826fc81f&language=en-US&page=${page}`
-        );
-        const moviesData = response.data.results;
-        allMovies = [...allMovies, ...moviesData];
-      }
-  
-      return allMovies;
-    } catch (error) {
-      setLoading(false);
-      console.error(`Error fetching ${category} movies:`, error);
-      return [];
-    }finally{
-      setLoading(false);
-      console.error(`Finished fetching trending movies`);
     }
   };
   
