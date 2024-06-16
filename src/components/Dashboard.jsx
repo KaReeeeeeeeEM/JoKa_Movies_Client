@@ -144,6 +144,8 @@ export default function Dashboard() {
       } catch (error) {
         setLoading(false);
         console.error("Error fetching movies:", error);
+      }finally{
+        setLoading(false);
       }
     };
   
@@ -152,8 +154,8 @@ export default function Dashboard() {
   
   const fetchMoviesByCategory = async (category, pageCount) => {
     try {
+      setLoading(true)
       let allMovies = [];
-  
       for (let page = 1; page <= pageCount; page++) {
         const response = await axios.get(
           `https://api.themoviedb.org/3/movie/${category}?api_key=035c0f1a7347b310a5b95929826fc81f&language=en-US&page=${page}`
@@ -164,14 +166,18 @@ export default function Dashboard() {
   
       return allMovies;
     } catch (error) {
+      setLoading(false);
       console.error(`Error fetching ${category} movies:`, error);
       return [];
+    }finally{
+      setLoading(false);
     }
   };
 
   const fetchTrending = async (category, pageCount) => {
     try {
       let allMovies = [];
+      setLoading(true);
   
       for (let page = 1; page <= pageCount; page++) {
         const response = await axios.get(
@@ -183,8 +189,11 @@ export default function Dashboard() {
   
       return allMovies;
     } catch (error) {
+      setLoading(false);
       console.error(`Error fetching ${category} movies:`, error);
       return [];
+    }finally{
+      setLoading(false);
     }
   };
   
