@@ -121,7 +121,6 @@ export default function Dashboard() {
     setOpen(!open);
   };
 
-  useEffect(() => {
   const fetchMovies = async (currentPage = 1) => {
     try {
       setLoading(true);
@@ -159,11 +158,12 @@ export default function Dashboard() {
     } catch (error) {
       setLoading(false);
       console.error("Error fetching movies:", error);
+    }finally{
+      setLoading(false);
     }
   };
 
-  fetchMovies();
-}, []);
+fetchMovies();
 
 
   return (
