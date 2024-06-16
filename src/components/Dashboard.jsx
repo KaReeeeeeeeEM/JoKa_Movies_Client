@@ -93,7 +93,7 @@ const defaultTheme = createTheme();
 
 export default function Dashboard() {
   const [open, setOpen] = useState(true);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState(null);
   const [profile, setProfile] = useState(null);
   const [popularMovies, setPopularMovies] = useState([]);
@@ -122,50 +122,53 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    const fetchMovies = async (currentPage = 1) => {
+    const fetchMovies = async () => {
       try {
         setLoading(true);
   
-        // Fetch popular movies
-        const popularResponse = await axios.get(
-          `https://api.themoviedb.org/3/movie/popular?api_key=035c0f1a7347b310a5b95929826fc81f&language=en-US&page=${currentPage}`
-        );
-        const popularMoviesData = popularResponse.data.results;
+        // Fetch popular movies (5 pages)
+        const popularMoviesData = await fetchMoviesByCategory("popular", 5);
   
-        // Fetch trending movies
-        const trendingResponse = await axios.get(
-          `https://api.themoviedb.org/3/trending/all/day?api_key=035c0f1a7347b310a5b95929826fc81f&page=${currentPage}`
-        );
-        const trendingMoviesData = trendingResponse.data.results;
+        // Fetch trending movies (5 pages)
+        const trendingMoviesData = await fetchMoviesByCategory("trending", 5);
   
-        // Fetch upcoming movies
-        const upcomingResponse = await axios.get(
-          `https://api.themoviedb.org/3/movie/upcoming?api_key=035c0f1a7347b310a5b95929826fc81f&page=${currentPage}`
-        );
-        const upcomingMoviesData = upcomingResponse.data.results;
+        // Fetch upcoming movies (5 pages)
+        const upcomingMoviesData = await fetchMoviesByCategory("upcoming", 5);
   
         // Update state with fetched data
-        setPopularMovies((prevResults) => [...prevResults, ...popularMoviesData]);
-        setTrendingMovies((prevResults) => [...prevResults, ...trendingMoviesData]);
-        setUpcomingMovies((prevResults) => [...prevResults, ...upcomingMoviesData]);
+        setPopularMovies(popularMoviesData);
+        setTrendingMovies(trendingMoviesData);
+        setUpcomingMovies(upcomingMoviesData);
   
-        if (currentPage <= 3) {
-          await fetchMovies(currentPage + 1);
-        } else {
-          setLoading(false);
-          console.log("Finished fetching movies");
-        }
+        setLoading(false);
       } catch (error) {
         setLoading(false);
         console.error("Error fetching movies:", error);
-      } finally {
-        setLoading(false);
-        console.log(upcomingMovies, trendingMovies, popularMovies);
       }
     };
   
     fetchMovies();
   }, []);
+  
+  const fetchMoviesByCategory = async (category, pageCount) => {
+    try {
+      let allMovies = [];
+  
+      for (let page = 1; page <= pageCount; page++) {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/${category}?api_key=035c0f1a7347b310a5b95929826fc81f&language=en-US&page=${page}`
+        );
+        const moviesData = response.data.results;
+        allMovies = [...allMovies, ...moviesData];
+      }
+  
+      return allMovies;
+    } catch (error) {
+      console.error(`Error fetching ${category} movies:`, error);
+      return [];
+    }
+  };
+  
   
 
   return (
@@ -213,13 +216,13 @@ export default function Dashboard() {
                     sx={{ display: "flex", flexWrap: "wrap" }}
                   >
                     {popularMovies.map((movie) => (
-                      <Grid item key={movie.id}>
+                      <Grid item key={movie.id} xs={12}> 
                         <Link
-                          sx={{ textDecoration: "none" }}
+                          component="a"
                           href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
+                          underline="none"
                         >
                           <Card
-                            key={movie.id}
                             movie={
                               movie.original_title.length > 30
                                 ? movie.original_title.substring(0, 30) + "..."
