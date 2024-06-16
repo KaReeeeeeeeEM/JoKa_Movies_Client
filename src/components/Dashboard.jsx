@@ -93,7 +93,7 @@ const defaultTheme = createTheme();
 
 export default function Dashboard() {
   const [open, setOpen] = useState(true);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState(null);
   const [profile, setProfile] = useState(null);
   const [popularMovies, setPopularMovies] = useState([]);
@@ -127,15 +127,15 @@ export default function Dashboard() {
       const popular = await axios.get(
         `https://api.themoviedb.org/3/movie/popular?api_key=035c0f1a7347b310a5b95929826fc81f&language=en-US&page=${currentPage}`
       );
-      console.log('Popular Movies:', popular.data.results); // Log fetched data
+      console.log('Popular Movies:', popularMovies); // Log fetched data
       const trending = await axios.get(
         `https://api.themoviedb.org/3/trending/all/day?api_key=035c0f1a7347b310a5b95929826fc81f&page=${currentPage}`
       );
-      console.log('Trending Movies:', trending.data.results); // Log fetched data
+      console.log('Trending Movies:', trendingMovies); // Log fetched data
       const upcoming = await axios.get(
         `https://api.themoviedb.org/3/movie/upcoming?api_key=035c0f1a7347b310a5b95929826fc81f`
       );
-      console.log('Upcoming Movies:', upcoming.data.results); // Log fetched data
+      console.log('Upcoming Movies:', upcomingMovies); // Log fetched data
 
       setPopularMovies((prevResults) => [
         ...prevResults,
@@ -154,16 +154,18 @@ export default function Dashboard() {
         await fetchMovies(currentPage + 1);
       } else {
         setLoading(false);
+        console.log("Finished fetching movies");
       }
     } catch (error) {
       setLoading(false);
       console.error("Error fetching movies:", error);
     }finally{
       setLoading(false);
+      console.log(upcomingMovies, trendingMovies, popularMovies)
     }
   };
 
-fetchMovies();
+  fetchMovies();
 
 
   return (
