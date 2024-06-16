@@ -141,7 +141,6 @@ export default function Dashboard() {
   const fetchMoviesByCategory = async (category, pageCount) => {
     try {
       let allMovies = [];
-      let trendingMovies = [];
   
       for (let page = 1; page <= pageCount; page++) {
         const response = await axios.get(
@@ -213,7 +212,6 @@ export default function Dashboard() {
                     {popularMovies.map((movie) => (
                       <Grid item key={movie.id} xs={12}> 
                         <Link
-                          component="a"
                           href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
                           underline="none"
                         >
