@@ -93,7 +93,7 @@ const defaultTheme = createTheme();
 
 export default function Dashboard() {
   const [open, setOpen] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState(null);
   const [profile, setProfile] = useState(null);
   const [popularMovies, setPopularMovies] = useState([]);
@@ -130,8 +130,8 @@ export default function Dashboard() {
         const popularMoviesData = await fetchMoviesByCategory("popular", 5);
   
         // Fetch trending movies (5 pages)
-        // const trendingMoviesData = await fetchTrending("trending", 5);
-        const trendingMoviesData = await fetchMoviesByCategory("popular", 5);
+        const trendingMoviesData = await fetchTrending("trending", 5);
+        // const trendingMoviesData = await fetchMoviesByCategory("popular", 5);
   
         // Fetch upcoming movies (5 pages)
         const upcomingMoviesData = await fetchMoviesByCategory("upcoming", 5);
@@ -172,6 +172,7 @@ export default function Dashboard() {
       return [];
     }finally{
       setLoading(false);
+      console.error(`Finished fetching upcoming and popular movies`);
     }
   };
 
@@ -195,6 +196,7 @@ export default function Dashboard() {
       return [];
     }finally{
       setLoading(false);
+      console.error(`Finished fetching trending movies`);
     }
   };
   
