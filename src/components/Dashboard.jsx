@@ -20,7 +20,7 @@ import Link from "@mui/material/Link";
 import TopBar from "./TopBar";
 import MainListItems from "./ListItems";
 import { dark } from "@mui/material/styles/createPalette";
-import { MovieCreation, TrendingUp, Lightbulb } from "@mui/icons-material";
+import { MovieCreation, TrendingUp, LightbulbIcon } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import SarufiChatbox from "react-sarufi-chatbox";
 import "../index.css";
