@@ -156,10 +156,9 @@ export default function Dashboard() {
         const upcomingResponse = await axios.get(
           `https://api.themoviedb.org/3/movie/upcoming?api_key=035c0f1a7347b310a5b95929826fc81f&page=1`
         );
-        setUpcomingMovies(prev => [...upcomingResponse, ...upcomingResponse.data.results]);
-        setPopularMovies(prev => [...popularResponse, ...popularResponse.data.results]);
-        setTrendingMovies(prev => [...trendingResponse, ...trendingResponse.data.results]);
-        
+        setUpcomingMovies(prev => [...prev, ...upcomingResponse.data.results]);
+        setPopularMovies(prev => [...prev, ...popularResponse.data.results]);
+        setTrendingMovies(prev => [...prev, ...trendingResponse.data.results]); 
       }
     } catch (error) {
       setLoading(false);
