@@ -127,13 +127,13 @@ export default function Dashboard() {
         setLoading(true);
   
         // Fetch popular movies (5 pages)
-        const popularMoviesData = await fetchMoviesByCategory("popular", 5);
+        const popularMoviesData = await fetchMoviesByCategory("movie/popular", 5);
   
         // Fetch trending movies (5 pages)
-        const trendingMoviesData = await fetchMoviesByCategory("trending", 5);
+        const trendingMoviesData = await fetchMoviesByCategory("trending/all/day", 5);
   
         // Fetch upcoming movies (5 pages)
-        const upcomingMoviesData = await fetchMoviesByCategory("upcoming", 5);
+        const upcomingMoviesData = await fetchMoviesByCategory("movie/upcoming", 5);
   
         // Update state with fetched data
         setPopularMovies(popularMoviesData);
@@ -152,6 +152,7 @@ export default function Dashboard() {
   
   const fetchMoviesByCategory = async (category, pageCount) => {
     try {
+      setLoading(true);
       let allMovies = [];
   
       for (let page = 1; page <= pageCount; page++) {
@@ -164,8 +165,11 @@ export default function Dashboard() {
   
       return allMovies;
     } catch (error) {
+      setLoading(false);
       console.error(`Error fetching ${category} movies:`, error);
       return [];
+    }finally{
+      setLoading(false);
     }
   };
   
@@ -241,7 +245,8 @@ export default function Dashboard() {
                     <IconButton>
                       <TrendingUp fontSize="large" />
                     </IconButton>
-                    <span style={{ color: "orange" }}>Featured</span> Content
+                    <span style={{ color: "orange" }}>Trending</span> Movies &
+                    Shows
                   </Typography>
                   <Grid
                     container
