@@ -130,7 +130,8 @@ export default function Dashboard() {
         const popularMoviesData = await fetchMoviesByCategory("popular", 5);
   
         // Fetch trending movies (5 pages)
-        const trendingMoviesData = await fetchTrending("trending", 5);
+        // const trendingMoviesData = await fetchTrending("trending", 5);
+        const trendingMoviesData = await fetchMoviesByCategory("popular", 5);
   
         // Fetch upcoming movies (5 pages)
         const upcomingMoviesData = await fetchMoviesByCategory("upcoming", 5);
