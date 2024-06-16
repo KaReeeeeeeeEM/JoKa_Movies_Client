@@ -20,7 +20,7 @@ import Link from "@mui/material/Link";
 import TopBar from "./TopBar";
 import MainListItems from "./ListItems";
 import { dark } from "@mui/material/styles/createPalette";
-import { MovieCreation, TrendingUp, LightbulbIcon } from "@mui/icons-material";
+import { MovieCreation, TrendingUp, LightbulbIcon, LightbulbCircleOutlined } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import SarufiChatbox from "react-sarufi-chatbox";
 import "../index.css";
@@ -276,7 +276,7 @@ export default function Dashboard() {
                 <Grid item xs={12} mt={5} textAlign="center">
                   <Typography variant="h4">
                     <IconButton>
-                      <LightbulbIcon fontSize="large" />
+                      <LightbulbCircleOutlined fontSize="large" />
                     </IconButton>
                     <span style={{ color: "orange" }}>Featured</span> Content
                   </Typography>
