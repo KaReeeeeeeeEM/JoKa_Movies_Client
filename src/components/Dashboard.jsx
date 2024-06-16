@@ -184,146 +184,145 @@ export default function Dashboard() {
           >
             <Toolbar />
             <Container maxWidth="100vw" sx={{ mt: 3, mb: 4 }}>
-              <Grid container spacing={3} justifyContent="center">
-                <Grid item xs={12} mt={5} textAlign="center">
-                  {user ? (
-                    <Typography variant="h4">
-                      <IconButton>
-                        <MovieCreation fontSize="large" />
-                      </IconButton>
-                      <span style={{ color: "orange" }}>Popular</span> Movies
-                      for <span style={{ color: "orange" }}>{username}</span>
-                    </Typography>
-                  ) : (
-                    <Typography variant="h4">
-                      <IconButton>
-                        <MovieCreation fontSize="large" />
-                      </IconButton>
-                      <span style={{ color: "orange" }}>Popular</span> Movies
-                    </Typography>
-                  )}
-                  <Grid
-                    container
-                    justifyContent="center"
-                    spacing={0}
-                    mt={3}
-                    sx={{
-                      display: "flex",
-                      flexWrap: "nowrap",
-                      overflowX: "auto",
-                      padding: "0 10%",
-                      marginLeft: "10%",
-                    }}
-                  >
-                    {popularMovies.map((movie) => (
-                      <Grid item key={movie.id} sx={{ flex: "0 0 auto", margin: "0 2px" }}>
-                        <Link
-                          href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
-                          underline="none"
-                        >
-                          <Card
-                            movie={
-                              movie.original_title.length > 30
-                                ? movie.original_title.substring(0, 30) + "..."
-                                : movie.original_title
-                            }
-                            year={movie.release_date.slice(0, 4)}
-                            poster_path={movie.poster_path}
-                          />
-                        </Link>
-                      </Grid>
-                    ))}
-                  </Grid>
-                </Grid>
-
-                <Grid item xs={12} mt={5} textAlign="center">
+            <Grid container spacing={3} justifyContent="center">
+              <Grid item xs={12} mt={5} textAlign="center">
+                {user ? (
                   <Typography variant="h4">
                     <IconButton>
-                      <TrendingUp fontSize="large" />
+                      <MovieCreation fontSize="large" />
                     </IconButton>
-                    <span style={{ color: "orange" }}>Trending</span> Movies & Shows
+                    <span style={{ color: "orange" }}>Popular</span> Movies
+                    for <span style={{ color: "orange" }}>{username}</span>
                   </Typography>
-                  <Grid
-                    container
-                    justifyContent="center"
-                    spacing={0}
-                    mt={3}
-                    sx={{ padding: "0 10%" }}
-                  >
-                    {trendingMovies.map((movie) => (
-                      <Grid item key={movie.id} xs={12} sm={6} md={4} lg={3} sx={{ padding: "0 1px" }}>
-                        <Link
-                          sx={{ textDecoration: "none" }}
-                          href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
-                        >
-                          <Card
-                            key={movie.id}
-                            movie={
-                              movie.title?.length > 30
-                                ? movie.title.substring(0, 30)
-                                : movie.title || movie.original_title.length > 30
-                                ? movie.original_title.substring(0, 30)
-                                : movie.original_title || movie.name.length > 30
-                                ? movie.name.substring(0, 30) + "..."
-                                : movie.name
-                            }
-                            media={movie.media_type.toUpperCase()}
-                            rating={Math.ceil(movie.vote_average * 10) / 10}
-                            poster_path={movie.poster_path || movie.backdrop_path}
-                            star={<Star />}
-                          />
-                        </Link>
-                      </Grid>
-                    ))}
-                  </Grid>
-                </Grid>
-
-                <Grid item xs={12} mt={5} textAlign="center">
+                ) : (
                   <Typography variant="h4">
                     <IconButton>
-                      <LightbulbCircleOutlined fontSize="large" />
+                      <MovieCreation fontSize="large" />
                     </IconButton>
-                    <span style={{ color: "orange" }}>Featured</span> Content
+                    <span style={{ color: "orange" }}>Popular</span> Movies
                   </Typography>
-                  <Grid
-                    container
-                    justifyContent="center"
-                    spacing={0}
-                    mt={3}
-                    sx={{ padding: "0 10%" }}
-                  >
-                    {upcomingMovies.map((movie) => (
-                      <Grid item key={movie.id} xs={12} sm={6} md={4} lg={3} sx={{ padding: "0 1px" }}>
-                        <Link
-                          sx={{ textDecoration: "none" }}
-                          href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
-                        >
-                          <Card
-                            key={movie.id}
-                            movie={
-                              movie.title?.length > 30
-                                ? movie.title.substring(0, 30)
-                                : movie.title || movie.original_title.length > 30
-                                ? movie.original_title.substring(0, 30) + "..."
-                                : movie.original_title || movie.name.length > 30
-                                ? movie.name.substring(0, 30) + "..."
-                                : movie.name
-                            }
-                            year={movie.release_date.slice(0, 4)}
-                            rating={
-                              movie.vote_average === 0
-                                ? "5.5"
-                                : movie.vote_average
-                            }
-                            poster_path={movie.backdrop_path}
-                            star={<Star />}
-                          />
-                        </Link>
-                      </Grid>
-                    ))}
-                  </Grid>
+                )}
+                <Grid
+                  container
+                  justifyContent="center"
+                  spacing={0}
+                  mt={3}
+                  sx={{
+                    display: "flex",
+                    flexWrap: "nowrap",
+                    overflowX: "auto",
+                    padding: "0 10%", // Adjust padding for first card visibility
+                  }}
+                >
+                  {popularMovies.map((movie) => (
+                    <Grid item key={movie.id} sx={{ flex: "0 0 auto", margin: "0 2px" }}>
+                      <Link
+                        href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
+                        underline="none"
+                      >
+                        <Card
+                          movie={
+                            movie.original_title.length > 30
+                              ? movie.original_title.substring(0, 30) + "..."
+                              : movie.original_title
+                          }
+                          year={movie.release_date.slice(0, 4)}
+                          poster_path={movie.poster_path}
+                        />
+                      </Link>
+                    </Grid>
+                  ))}
                 </Grid>
               </Grid>
+
+              <Grid item xs={12} mt={5} textAlign="center">
+                <Typography variant="h4">
+                  <IconButton>
+                    <TrendingUp fontSize="large" />
+                  </IconButton>
+                  <span style={{ color: "orange" }}>Trending</span> Movies & Shows
+                </Typography>
+                <Grid
+                  container
+                  justifyContent="center"
+                  spacing={0}
+                  mt={3}
+                  sx={{ padding: "0 2%", maxWidth: "100%" }} // Adjust padding and maxWidth
+                >
+                  {trendingMovies.map((movie) => (
+                    <Grid item key={movie.id} xs={12} sm={6} md={6} lg={6} sx={{ margin: "0 4px" }}>
+                      <Link
+                        sx={{ textDecoration: "none" }}
+                        href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
+                      >
+                        <Card
+                          key={movie.id}
+                          movie={
+                            movie.title?.length > 30
+                              ? movie.title.substring(0, 30)
+                              : movie.title || movie.original_title.length > 30
+                              ? movie.original_title.substring(0, 30)
+                              : movie.original_title || movie.name.length > 30
+                              ? movie.name.substring(0, 30) + "..."
+                              : movie.name
+                          }
+                          media={movie.media_type.toUpperCase()}
+                          rating={Math.ceil(movie.vote_average * 10) / 10}
+                          poster_path={movie.poster_path || movie.backdrop_path}
+                          star={<Star />}
+                        />
+                      </Link>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Grid>
+
+              <Grid item xs={12} mt={5} textAlign="center">
+                <Typography variant="h4">
+                  <IconButton>
+                    <LightbulbCircleOutlined fontSize="large" />
+                  </IconButton>
+                  <span style={{ color: "orange" }}>Featured</span> Content
+                </Typography>
+                <Grid
+                  container
+                  justifyContent="center"
+                  spacing={0}
+                  mt={3}
+                  sx={{ padding: "0 2%", maxWidth: "100%" }} // Adjust padding and maxWidth
+                >
+                  {upcomingMovies.map((movie) => (
+                    <Grid item key={movie.id} xs={12} sm={6} md={6} lg={6} sx={{ margin: "0 4px" }}>
+                      <Link
+                        sx={{ textDecoration: "none" }}
+                        href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
+                      >
+                        <Card
+                          key={movie.id}
+                          movie={
+                            movie.title?.length > 30
+                              ? movie.title.substring(0, 30)
+                              : movie.title || movie.original_title.length > 30
+                              ? movie.original_title.substring(0, 30) + "..."
+                              : movie.original_title || movie.name.length > 30
+                              ? movie.name.substring(0, 30) + "..."
+                              : movie.name
+                          }
+                          year={movie.release_date.slice(0, 4)}
+                          rating={
+                            movie.vote_average === 0
+                              ? "5.5"
+                              : movie.vote_average
+                          }
+                          poster_path={movie.backdrop_path}
+                          star={<Star />}
+                        />
+                      </Link>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Grid>
+            </Grid>
             </Container>
             <SarufiChatbox botId={3343} />
           </Box>
