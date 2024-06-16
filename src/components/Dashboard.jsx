@@ -121,48 +121,48 @@ export default function Dashboard() {
     setOpen(!open);
   };
 
- useEffect(() => {
-  const fetchMovies = async () => {
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        setLoading(true);
+        await fetchMoviesByCategory("popular", 5);
+        await fetchMoviesByCategory("trending", 5);
+        await fetchMoviesByCategory("upcoming", 5);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        console.error("Error fetching movies:", error);
+      }
+    };
+  
+    fetchMovies();
+  }, []);
+  
+  const fetchMoviesByCategory = async (category, pageCount) => {
     try {
-      setLoading(true);
-      await fetchMoviesByCategory("popular", 5);
-      await fetchMoviesByCategory("trending", 5);
-      await fetchMoviesByCategory("upcoming", 5);
-      setLoading(false);
+      let allMovies = [];
+  
+      for (let page = 1; page <= pageCount; page++) {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/${category}?api_key=035c0f1a7347b310a5b95929826fc81f&language=en-US&page=${page}`
+        );
+        const moviesData = response.data.results;
+        allMovies = [...allMovies, ...moviesData];
+      }
+  
+      // Update state based on category
+      if (category === "popular") {
+        setPopularMovies((prev) => [...prev, ...allMovies]);
+      } else if (category === "trending") {
+        setTrendingMovies((prev) => [...prev, ...allMovies]);
+      } else if (category === "upcoming") {
+        setUpcomingMovies((prev) => [...prev, ...allMovies]);
+      }
     } catch (error) {
-      setLoading(false);
-      console.error("Error fetching movies:", error);
+      console.error(`Error fetching ${category} movies:`, error);
     }
-  };
-
-  fetchMovies();
-}, []);
-
-const fetchMoviesByCategory = async (category, pageCount) => {
-  try {
-    let allMovies = [];
-
-    for (let page = 1; page <= pageCount; page++) {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${category}?api_key=035c0f1a7347b310a5b95929826fc81f&language=en-US&page=${page}`
-      );
-      const moviesData = response.data.results;
-      allMovies = [...allMovies, ...moviesData];
-    }
-
-    // Update state based on category
-    if (category === "popular") {
-      setPopularMovies((prev) => [...prev, ...allMovies]);
-    } else if (category === "trending") {
-      setTrendingMovies((prev) => [...prev, ...allMovies]);
-    } else if (category === "upcoming") {
-      setUpcomingMovies((prev) => [...prev, ...allMovies]);
-    }
-  } catch (error) {
-    console.error(`Error fetching ${category} movies:`, error);
-  }
-};
-
+  };  
+  
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -208,21 +208,27 @@ const fetchMoviesByCategory = async (category, pageCount) => {
                     mt={3}
                     sx={{ display: "flex", flexWrap: "wrap" }}
                   >
-                    {popularMovies.map((movie) => (
-                      <Grid item key={movie.id} xs={12}> 
+                     {popularMovies.map((movie) => (
+                      <Grid item key={movie.id}>
                         <Link
-                          component="a"
+                          sx={{ textDecoration: "none" }}
                           href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
-                          underline="none"
                         >
                           <Card
+                            key={movie.id}
                             movie={
-                              movie.original_title.length > 30
-                                ? movie.original_title.substring(0, 30) + "..."
-                                : movie.original_title
+                              movie.title?.length > 30
+                                ? movie.title.substring(0, 30)
+                                : movie.title || movie.original_title.length > 30
+                                ? movie.original_title.substring(0, 30)
+                                : movie.original_title || movie.name.length > 30
+                                ? movie.name.substring(0, 30) + "..."
+                                : movie.name
                             }
-                            year={movie.release_date.slice(0, 4)}
-                            poster_path={movie.poster_path}
+                            media={movie.media_type.toUpperCase()}
+                            rating={Math.ceil(movie.vote_average * 10) / 10}
+                            poster_path={movie.poster_path || movie.backdrop_path}
+                            star={<Star />}
                           />
                         </Link>
                       </Grid>
