@@ -93,7 +93,7 @@ const defaultTheme = createTheme();
 
 export default function Dashboard() {
   const [open, setOpen] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState(null);
   const [profile, setProfile] = useState(null);
   const [popularMovies, setPopularMovies] = useState([]);
