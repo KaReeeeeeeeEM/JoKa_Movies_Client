@@ -12,7 +12,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Card from "./Card";
 import SimpleBackDrop from "./SimpleBackDrop";
 import Star from "@mui/icons-material/Star";
-import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import Container from "@mui/material/Container";
@@ -21,8 +20,8 @@ import Link from "@mui/material/Link";
 import TopBar from "./TopBar";
 import MainListItems from "./ListItems";
 import { dark } from "@mui/material/styles/createPalette";
-import { Movie, MovieCreation, TrendingUp, Tv } from "@mui/icons-material";
-import { Icon, IconButton } from "@mui/material";
+import { MovieCreation, TrendingUp, LightbulbIcon } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 import SarufiChatbox from "react-sarufi-chatbox";
 import "../index.css";
 
@@ -90,7 +89,6 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
@@ -102,7 +100,7 @@ export default function Dashboard() {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [upcomingMovies, setUpcomingMovies] = useState([]);
   const { user } = useParams();
-  const urlSearchParams = new URLSearchParams(window.location.search); // Parse query string
+  const urlSearchParams = new URLSearchParams(window.location.search);
   const profilePicture = urlSearchParams.get("profile");
 
   useEffect(() => {
@@ -130,47 +128,35 @@ export default function Dashboard() {
         const popular = await axios.get(
           `https://api.themoviedb.org/3/movie/popular?api_key=035c0f1a7347b310a5b95929826fc81f&language=en-US&page=${currentPage}`
         );
-        //setPopularMovies(popular.data.results);
-
         const trending = await axios.get(
           `https://api.themoviedb.org/3/trending/all/day?api_key=035c0f1a7347b310a5b95929826fc81f&page=${currentPage}`
         );
-        //setTrendingMovies(trending.data.results);
-
         const upcoming = await axios.get(
           `https://api.themoviedb.org/3/movie/upcoming?api_key=035c0f1a7347b310a5b95929826fc81f`
         );
-        //setUpcomingMovies(upcoming.data.results);
+
+        setPopularMovies((prevResults) => [
+          ...prevResults,
+          ...popular.data.results,
+        ]);
+        setTrendingMovies((prevResults) => [
+          ...prevResults,
+          ...trending.data.results,
+        ]);
+        setUpcomingMovies((prevResults) => [
+          ...prevResults,
+          ...upcoming.data.results,
+        ]);
 
         if (currentPage <= 3) {
-          // More pages available, continue iterating
           await fetchMovies(currentPage + 1);
-          setPopularMovies((prevResults) => [
-            ...prevResults,
-            ...popular.data.results,
-          ]);
-          setTrendingMovies((prevResults) => [
-            ...prevResults,
-            ...trending.data.results,
-          ]);
-          setUpcomingMovies((prevResults) => [
-            ...prevResults,
-            ...upcoming.data.results,
-          ]);
-          setLoading(true);
-          currentPage++;
         } else {
           setLoading(false);
-          console.log(
-            `Search completed with total pages ${trending.data.total_pages}`
-          );
         }
       } catch (error) {
         setLoading(false);
         window.location.href = "/NetworkError";
         console.error("Error fetching movies:", error);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -184,19 +170,6 @@ export default function Dashboard() {
       ) : (
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
-          {/* <Drawer variant="permanent">
-            <Toolbar
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-end",
-                px: [1],
-              }}
-            >
-            </Toolbar>
-            <Divider />
-            <MainListItems />
-          </Drawer> */}
           <TopBar profile={profilePicture} />
           <Box
             component="main"
@@ -208,9 +181,8 @@ export default function Dashboard() {
             }}
           >
             <Toolbar />
-            <Container maxWidth="100vw" sx={{ mt: 3, mb: 4 }} >
+            <Container maxWidth="100vw" sx={{ mt: 3, mb: 4 }}>
               <Grid container spacing={3} justifyContent="center">
-                {/* Popular movies */}
                 <Grid item xs={12} mt={5} textAlign="center">
                   {user ? (
                     <Typography variant="h4">
@@ -233,10 +205,7 @@ export default function Dashboard() {
                     justifyContent="center"
                     spacing={2}
                     mt={3}
-                    sx={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                    }}
+                    sx={{ display: "flex", flexWrap: "wrap" }}
                   >
                     {popularMovies.map((movie) => (
                       <Grid item key={movie.id}>
@@ -259,7 +228,6 @@ export default function Dashboard() {
                     ))}
                   </Grid>
                 </Grid>
-                {/* Trending movies */}
                 <Grid item xs={12} mt={5} textAlign="center">
                   <Typography variant="h4">
                     <IconButton>
@@ -273,10 +241,7 @@ export default function Dashboard() {
                     justifyContent="center"
                     spacing={2}
                     mt={3}
-                    sx={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                    }}
+                    sx={{ display: "flex", flexWrap: "wrap" }}
                   >
                     {trendingMovies.map((movie) => (
                       <Grid item key={movie.id}>
@@ -287,7 +252,7 @@ export default function Dashboard() {
                           <Card
                             key={movie.id}
                             movie={
-                              movie.title.length > 30
+                              movie.title?.length > 30
                                 ? movie.title.substring(0, 30)
                                 : movie.title || movie.original_title.length > 30
                                 ? movie.original_title.substring(0, 30)
@@ -305,24 +270,19 @@ export default function Dashboard() {
                     ))}
                   </Grid>
                 </Grid>
-
-                {/* Recent Orders */}
                 <Grid item xs={12} mt={5} textAlign="center">
                   <Typography variant="h4">
                     <IconButton>
                       <LightbulbIcon fontSize="large" />
                     </IconButton>
-                    <span style={{ color: "orange" }}>Featured</span> Content{" "}
+                    <span style={{ color: "orange" }}>Featured</span> Content
                   </Typography>
                   <Grid
                     container
                     justifyContent="center"
                     spacing={2}
                     mt={3}
-                    sx={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                    }}
+                    sx={{ display: "flex", flexWrap: "wrap" }}
                   >
                     {upcomingMovies.map((movie) => (
                       <Grid item key={movie.id}>
@@ -333,7 +293,7 @@ export default function Dashboard() {
                           <Card
                             key={movie.id}
                             movie={
-                              movie.title.length > 30
+                              movie.title?.length > 30
                                 ? movie.title.substring(0, 30)
                                 : movie.title || movie.original_title.length > 30
                                 ? movie.original_title.substring(0, 30) + "..."
