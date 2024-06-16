@@ -208,27 +208,21 @@ export default function Dashboard() {
                     mt={3}
                     sx={{ display: "flex", flexWrap: "wrap" }}
                   >
-                     {popularMovies.map((movie) => (
-                      <Grid item key={movie.id}>
+                    {popularMovies.map((movie) => (
+                      <Grid item key={movie.id} xs={12}> 
                         <Link
-                          sx={{ textDecoration: "none" }}
+                          component="a"
                           href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
+                          underline="none"
                         >
                           <Card
-                            key={movie.id}
                             movie={
-                              movie.title?.length > 30
-                                ? movie.title.substring(0, 30)
-                                : movie.title || movie.original_title.length > 30
-                                ? movie.original_title.substring(0, 30)
-                                : movie.original_title || movie.name.length > 30
-                                ? movie.name.substring(0, 30) + "..."
-                                : movie.name
+                              movie.original_title.length > 30
+                                ? movie.original_title.substring(0, 30) + "..."
+                                : movie.original_title
                             }
-                            media={movie.media_type.toUpperCase()}
-                            rating={Math.ceil(movie.vote_average * 10) / 10}
-                            poster_path={movie.poster_path || movie.backdrop_path}
-                            star={<Star />}
+                            year={movie.release_date.slice(0, 4)}
+                            poster_path={movie.poster_path}
                           />
                         </Link>
                       </Grid>
