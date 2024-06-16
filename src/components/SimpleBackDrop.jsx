@@ -5,15 +5,15 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Button from '@mui/material/Button';
 
 export default function SimpleBackdrop() {
-  const [open, setOpen] = React.useState(true);
+  // const [open, setOpen] = React.useState(true);
   
-    setTimeout(() => setOpen(false),5000);
+  //   setTimeout(() => setOpen(false),5000);
 
   return (
     <div>
       <Backdrop
         sx={{ color: 'orange', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
+        open={true}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
