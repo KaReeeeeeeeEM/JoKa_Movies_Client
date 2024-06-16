@@ -185,32 +185,32 @@ export default function Dashboard() {
             <Toolbar />
             <Container maxWidth="100vw" sx={{ mt: 3, mb: 4 }}>
               <Grid container spacing={3} justifyContent="center">
-                <Grid item xs={12} mt={5} textAlign="center">
-                  {user ? (
-                    <Typography variant="h4">
-                      <IconButton>
-                        <MovieCreation fontSize="large" />
-                      </IconButton>
-                      <span style={{ color: "orange" }}>Popular</span> Movies
-                      for <span style={{ color: "orange" }}>{username}</span>
-                    </Typography>
-                  ) : (
-                    <Typography variant="h4">
-                      <IconButton>
-                        <MovieCreation fontSize="large" />
-                      </IconButton>
-                      <span style={{ color: "orange" }}>Popular</span> Movies
-                    </Typography>
-                  )}
+              <Grid item xs={12} mt={5} textAlign="center">
+                {user ? (
+                  <Typography variant="h4">
+                    <IconButton>
+                      <MovieCreation fontSize="large" />
+                    </IconButton>
+                    <span style={{ color: "orange" }}>Popular</span> Movies
+                    for <span style={{ color: "orange" }}>{username}</span>
+                  </Typography>
+                ) : (
+                  <Typography variant="h4">
+                    <IconButton>
+                      <MovieCreation fontSize="large" />
+                    </IconButton>
+                    <span style={{ color: "orange" }}>Popular</span> Movies
+                  </Typography>
+                )}
                   <Grid
                     container
                     justifyContent="center"
                     spacing={2}
                     mt={3}
-                    sx={{ display: "flex", flexWrap: "wrap" }}
+                    sx={{ display: "flex", flexWrap: "nowrap", overflowX: "auto" }}
                   >
                     {popularMovies.map((movie) => (
-                      <Grid item key={movie.id} xs={12}> 
+                      <Grid item key={movie.id}>
                         <Link
                           href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
                           underline="none"
@@ -229,6 +229,7 @@ export default function Dashboard() {
                     ))}
                   </Grid>
                 </Grid>
+
                 <Grid item xs={12} mt={5} textAlign="center">
                   <Typography variant="h4">
                     <IconButton>
