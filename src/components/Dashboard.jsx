@@ -121,51 +121,52 @@ export default function Dashboard() {
     setOpen(!open);
   };
 
-  const fetchMovies = async (currentPage = 1) => {
-    try {
-      setLoading(true);
+  useEffect(() => {
+    const fetchMovies = async (currentPage = 1) => {
+      try {
+        setLoading(true);
   
-      // Fetch popular movies
-      const popularResponse = await axios.get(
-        `https://api.themoviedb.org/3/movie/popular?api_key=035c0f1a7347b310a5b95929826fc81f&language=en-US&page=${currentPage}`
-      );
-      const popularMoviesData = popularResponse.data.results;
+        // Fetch popular movies
+        const popularResponse = await axios.get(
+          `https://api.themoviedb.org/3/movie/popular?api_key=035c0f1a7347b310a5b95929826fc81f&language=en-US&page=${currentPage}`
+        );
+        const popularMoviesData = popularResponse.data.results;
   
-      // Fetch trending movies
-      const trendingResponse = await axios.get(
-        `https://api.themoviedb.org/3/trending/all/day?api_key=035c0f1a7347b310a5b95929826fc81f&page=${currentPage}`
-      );
-      const trendingMoviesData = trendingResponse.data.results;
+        // Fetch trending movies
+        const trendingResponse = await axios.get(
+          `https://api.themoviedb.org/3/trending/all/day?api_key=035c0f1a7347b310a5b95929826fc81f&page=${currentPage}`
+        );
+        const trendingMoviesData = trendingResponse.data.results;
   
-      // Fetch upcoming movies
-      const upcomingResponse = await axios.get(
-        `https://api.themoviedb.org/3/movie/upcoming?api_key=035c0f1a7347b310a5b95929826fc81f`
-      );
-      const upcomingMoviesData = upcomingResponse.data.results;
+        // Fetch upcoming movies
+        const upcomingResponse = await axios.get(
+          `https://api.themoviedb.org/3/movie/upcoming?api_key=035c0f1a7347b310a5b95929826fc81f&page=${currentPage}`
+        );
+        const upcomingMoviesData = upcomingResponse.data.results;
   
-      // Update state with fetched data
-      setPopularMovies((prevResults) => [...prevResults, ...popularMoviesData]);
-      setTrendingMovies((prevResults) => [...prevResults, ...trendingMoviesData]);
-      setUpcomingMovies((prevResults) => [...prevResults, ...upcomingMoviesData]);
+        // Update state with fetched data
+        setPopularMovies((prevResults) => [...prevResults, ...popularMoviesData]);
+        setTrendingMovies((prevResults) => [...prevResults, ...trendingMoviesData]);
+        setUpcomingMovies((prevResults) => [...prevResults, ...upcomingMoviesData]);
   
-
-      if (currentPage <= 3) {
-        await fetchMovies(currentPage + 1);
-      } else {
+        if (currentPage <= 3) {
+          await fetchMovies(currentPage + 1);
+        } else {
+          setLoading(false);
+          console.log("Finished fetching movies");
+        }
+      } catch (error) {
         setLoading(false);
-        console.log("Finished fetching movies");
+        console.error("Error fetching movies:", error);
+      } finally {
+        setLoading(false);
+        console.log(upcomingMovies, trendingMovies, popularMovies);
       }
-    } catch (error) {
-      setLoading(false);
-      console.error("Error fetching movies:", error);
-    }finally{
-      setLoading(false);
-      console.log(upcomingMovies, trendingMovies, popularMovies)
-    }
-  };
-
-  fetchMovies();
-
+    };
+  
+    fetchMovies();
+  }, []);
+  
 
   return (
     <ThemeProvider theme={defaultTheme}>
