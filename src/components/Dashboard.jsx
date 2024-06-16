@@ -124,31 +124,30 @@ export default function Dashboard() {
   const fetchMovies = async (currentPage = 1) => {
     try {
       setLoading(true);
-      const popular = await axios.get(
+  
+      // Fetch popular movies
+      const popularResponse = await axios.get(
         `https://api.themoviedb.org/3/movie/popular?api_key=035c0f1a7347b310a5b95929826fc81f&language=en-US&page=${currentPage}`
       );
-      console.log('Popular Movies:', popularMovies); // Log fetched data
-      const trending = await axios.get(
+      const popularMoviesData = popularResponse.data.results;
+  
+      // Fetch trending movies
+      const trendingResponse = await axios.get(
         `https://api.themoviedb.org/3/trending/all/day?api_key=035c0f1a7347b310a5b95929826fc81f&page=${currentPage}`
       );
-      console.log('Trending Movies:', trendingMovies); // Log fetched data
-      const upcoming = await axios.get(
+      const trendingMoviesData = trendingResponse.data.results;
+  
+      // Fetch upcoming movies
+      const upcomingResponse = await axios.get(
         `https://api.themoviedb.org/3/movie/upcoming?api_key=035c0f1a7347b310a5b95929826fc81f`
       );
-      console.log('Upcoming Movies:', upcomingMovies); // Log fetched data
-
-      setPopularMovies((prevResults) => [
-        ...prevResults,
-        ...popular.data.results,
-      ]);
-      setTrendingMovies((prevResults) => [
-        ...prevResults,
-        ...trending.data.results,
-      ]);
-      setUpcomingMovies((prevResults) => [
-        ...prevResults,
-        ...upcoming.data.results,
-      ]);
+      const upcomingMoviesData = upcomingResponse.data.results;
+  
+      // Update state with fetched data
+      setPopularMovies((prevResults) => [...prevResults, ...popularMoviesData]);
+      setTrendingMovies((prevResults) => [...prevResults, ...trendingMoviesData]);
+      setUpcomingMovies((prevResults) => [...prevResults, ...upcomingMoviesData]);
+  
 
       if (currentPage <= 3) {
         await fetchMovies(currentPage + 1);
