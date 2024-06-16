@@ -211,7 +211,7 @@ export default function Dashboard() {
                     display: "flex",
                     flexWrap: "nowrap",
                     overflowX: "auto",
-                    padding: "0 10%", // Adjust padding for first card visibility
+                    padding: "0 30%", // Adjust padding for first card visibility
                   }}
                 >
                   {popularMovies.map((movie) => (
@@ -247,10 +247,10 @@ export default function Dashboard() {
                   justifyContent="center"
                   spacing={0}
                   mt={3}
-                  sx={{ padding: "0 2%", maxWidth: "100%" }} // Adjust padding and maxWidth
+                  sx={{ padding: "0 1%", maxWidth: "100%" }} // Adjust padding and maxWidth
                 >
                   {trendingMovies.map((movie) => (
-                    <Grid item key={movie.id} xs={12} sm={6} md={6} lg={6} sx={{ margin: "0 4px" }}>
+                    <Grid item key={movie.id} xs={12} sm={6} md={6} lg={6} sx={{ margin: "0 2px" }}>
                       <Link
                         sx={{ textDecoration: "none" }}
                         href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
@@ -289,10 +289,10 @@ export default function Dashboard() {
                   justifyContent="center"
                   spacing={0}
                   mt={3}
-                  sx={{ padding: "0 2%", maxWidth: "100%" }} // Adjust padding and maxWidth
+                  sx={{ padding: "0 1%", maxWidth: "100%" }} // Adjust padding and maxWidth
                 >
                   {upcomingMovies.map((movie) => (
-                    <Grid item key={movie.id} xs={12} sm={6} md={6} lg={6} sx={{ margin: "0 4px" }}>
+                    <Grid item key={movie.id} xs={12} sm={6} md={6} lg={6} sx={{ margin: "0 2px" }}>
                       <Link
                         sx={{ textDecoration: "none" }}
                         href={`/SelectedMovie/${movie.id}/${user}?profile=${profile}&related=${movie.original_title || movie.original_title}`}
